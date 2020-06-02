@@ -14,7 +14,9 @@ public class Roulette {
 	@Column(name="state")
 	private boolean state;
 
-	public Roulette() {	}
+	public Roulette() {
+		this.state=false;
+	}
 	
 	public Roulette(int id, boolean state) {
 		this.id = id;
