@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,9 @@ public class RouletteDAO implements IRouletteDAO{
 	@Override
 	public int save(Roulette roulette) {
 		Session currentSession = entityManager.unwrap(Session.class);
+		Transaction tx=currentSession.beginTransaction();
 		currentSession.saveOrUpdate(roulette);
+		tx.commit();
 		return roulette.getId();
 	}
 

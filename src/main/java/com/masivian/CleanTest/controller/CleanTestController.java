@@ -1,7 +1,11 @@
 package com.masivian.CleanTest.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -22,8 +26,22 @@ public class CleanTestController {
 	private UserService userService;
 	
 	@PostMapping("/createRoulette")
-	public int createRoulette() {
+	public ResponseEntity<String> createRoulette() {
 		Roulette roulette = new Roulette();
-		return rouletteService.save(roulette);
+		int idRoulette = rouletteService.save(roulette);
+		return new ResponseEntity<>("New Roulette have been created with id: "+ idRoulette, HttpStatus.OK);
 	}
+	
+	
+	@PutMapping("/openRoulette/{idRoulette}")
+	public ResponseEntity<String> openRoulette(@PathVariable int idRoulette) {
+		Roulette roulette = rouletteService.findById(idRoulette);
+		if(roulette != null) {
+			return rouletteService.openRoulette(roulette); 
+		}else {
+			return new ResponseEntity<>("The roulette with id: "+ idRoulette + " does not exist", HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	
 }
