@@ -84,4 +84,12 @@ public class RouletteService implements IRouletteService{
 		return betFiltered;
 	}
 
+	public List<Roulette> listRoulettes() {
+		try {
+			return rouletteDAO.findAll();		
+		}catch(Exception e) {
+			throw e;
+		}
+	}
+
 }
