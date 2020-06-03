@@ -29,7 +29,7 @@ public class Bet {
 	private User user;
 
 	public Bet() { }
-	
+			
 	public Bet(int id, int number, String color, double value, Roulette roulette, User user) {
 		this.id = id;
 		this.number = number;
