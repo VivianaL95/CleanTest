@@ -21,7 +21,7 @@ public class BetDAO implements IBetDAO{
 	@Override
 	public List<Bet> findAll() {
 		Session currentSession = entityManager.unwrap(Session.class);
-		Query<Bet> query = currentSession.createQuery("from bet", Bet.class);
+		Query<Bet> query = currentSession.createQuery("from Bet", Bet.class);
 		List<Bet> bets = query.getResultList();
 		return bets;
 	}

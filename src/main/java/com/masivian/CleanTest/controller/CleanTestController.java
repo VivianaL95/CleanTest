@@ -3,12 +3,13 @@ package com.masivian.CleanTest.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
@@ -60,5 +61,16 @@ public class CleanTestController {
 		}
 	}
 	
-	
+	@PutMapping("/closeRoulette/{idRoulette}")
+	@ResponseBody
+	public ResponseEntity<JSONObject> closeRoulette(@PathVariable int idRoulette) {
+		Roulette roulette = rouletteService.findById(idRoulette);
+		JSONObject response = new JSONObject();
+		if(roulette != null) {
+			return rouletteService.closeRoulette(roulette); 
+		}else {
+			response.append("response", "The roulette with id: "+ idRoulette + " does not exist");
+			return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+		}
+	}	
 }
